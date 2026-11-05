@@ -1,0 +1,57 @@
+name: Build APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Install Capacitor
+        run: npm install --no-audit --no-fund
+
+      - name: Create the Android project and copy the app in
+        run: |
+          npx cap add android
+          npx cap sync android
+
+      - name: Build the APK
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
+          cp app/build/outputs/apk/debug/app-debug.apk ../ReplayDesk.apk
+
+      - name: Keep the APK as a download on the run
+        uses: actions/upload-artifact@v4
+        with:
+          name: ReplayDesk-apk
+          path: ReplayDesk.apk
+
+      - name: Publish the APK on the apk branch
+        run: |
+          git config user.name "replay-desk-ci"
+          git config user.email "ci@users.noreply.github.com"
+          mkdir -p /tmp/out && cp ReplayDesk.apk /tmp/out/
+          git checkout --orphan apk
+          git rm -rf --quiet .
+          cp /tmp/out/ReplayDesk.apk .
+          git add ReplayDesk.apk
+          git commit -m "APK from ${GITHUB_SHA::7}"
+          git push -f origin apk

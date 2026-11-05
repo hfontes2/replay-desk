@@ -1,0 +1,16 @@
+{
+  "name": "replay-desk-android",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Replay Desk as an Android app (Capacitor wrapper around the web build in www/)",
+  "scripts": {
+    "sync": "cap sync android"
+  },
+  "dependencies": {
+    "@capacitor/android": "7.4.3",
+    "@capacitor/core": "7.4.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "7.4.3"
+  }
+}

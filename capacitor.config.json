@@ -1,0 +1,8 @@
+{
+  "appId": "com.hfontes.replaydesk",
+  "appName": "Replay Desk",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": false
+  }
+}

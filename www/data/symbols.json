@@ -1,0 +1,20 @@
+[
+ {
+  "code": "EURUSD",
+  "digits": 5,
+  "contractSize": 100000,
+  "quoteCurrency": "USD",
+  "source": "histdata",
+  "m1From": 1672610640000,
+  "m1To": 1735682280000
+ },
+ {
+  "code": "GBPUSD",
+  "digits": 5,
+  "contractSize": 100000,
+  "quoteCurrency": "USD",
+  "source": "histdata",
+  "m1From": 1672614240000,
+  "m1To": 1735682280000
+ }
+]
